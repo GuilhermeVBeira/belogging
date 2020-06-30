@@ -41,6 +41,20 @@ def test_add_filter():
     assert 'foobar' in loader.config['handlers']['default']['filters']
 
 
+def test_add_custom_handler():
+    loader = BeloggingLoader()
+    custom_handler = {
+        'level': 'INFO',
+        'formatter': 'default',
+        'class': 'logging.StreamHandler',
+        'stream': 'ext://sys.stdout',
+    }
+    loader.add_custom_handler(custom_handler)
+    assert 'custom' in loader.config['root']['handlers']
+    assert 'custom' in loader.config['handlers']
+    assert loader.config['handlers']['custom'] == custom_handler
+
+
 def test_add_filter_twice():
     loader = BeloggingLoader()
     loader.add_filter('foobar', 'whatever.path.ToFilter')

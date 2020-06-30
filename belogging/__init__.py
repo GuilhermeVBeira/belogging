@@ -8,11 +8,15 @@ from .loader import BeloggingLoader
 __loaded = False
 
 
-def load(log_format=None, enable_duplication_filter=False, **options):
+def load(log_format=None, enable_duplication_filter=False, custom_handler=False, **options):
     loader = BeloggingLoader(**options)
+
+    if custom_handler is not False:
+        loader.add_custom_handler(custom_handler)
 
     if log_format is not None:
         loader.update_default_formatter(log_format)
+
     if enable_duplication_filter:
         loader.add_filter('logger_duplication',
                           'belogging.filters.LoggerDuplicationFilter')

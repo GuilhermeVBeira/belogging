@@ -45,6 +45,10 @@ class BeloggingLoader:
         self.config['filters'].update(ft)
         self.config['handlers']['default']['filters'].append(filter_name)
 
+    def add_custom_handler(self, custom_handler):
+        self.config['handlers']['custom'] = custom_handler
+        self.config['root']['handlers'].append('custom')
+
     def setup(self):
         logging.config.dictConfig(self.config)
         return self.config
