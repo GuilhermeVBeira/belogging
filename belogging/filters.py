@@ -13,7 +13,7 @@ class LoggerFilter(logging.Filter):
         super().__init__(*args, **kwargs)
 
         loggers = os.getenv('LOGGERS', '')
-        self.logger_keys = [l.strip() for l in loggers.split(',') if l.strip()]
+        self.logger_keys = [log.strip() for log in loggers.split(',') if log.strip()]
 
         self.levelname = os.getenv('LOG_LEVEL', 'INFO')
         self.levelno = LEVEL_MAP.get(self.levelname, LEVEL_MAP['NOTSET'])
